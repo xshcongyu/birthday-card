@@ -401,26 +401,27 @@
       }
     });
 
-    // 音乐
     const bgm = document.getElementById("bgm");
-    const musicBtn = document.getElementById("musicBtn");
-    let isPlaying = false;
+const musicBtn = document.getElementById("musicBtn");
 
-    musicBtn.addEventListener("click", async () => {
-      try {
-        if (!isPlaying) {
-          await bgm.play();
-          isPlaying = true;
-          musicBtn.textContent = "暂停音乐";
+let isPlaying = false;
+
+musicBtn.addEventListener("click", async () => {
+    try {
+        if (bgm.paused) {
+            await bgm.play();
+            musicBtn.textContent = "暂停音乐";
+            isPlaying = true;
         } else {
-          bgm.pause();
-          isPlaying = false;
-          musicBtn.textContent = "播放音乐";
+            bgm.pause();
+            musicBtn.textContent = "播放音乐";
+            isPlaying = false;
         }
-      } catch (err) {
-        alert("如果你还没有放入 bgm.mp3，可以先忽略这个按钮。");
-      }
-    });
+    } catch (err) {
+        console.log(err);
+        alert("浏览器阻止播放，请再点击一次按钮");
+    }
+});
 
     // 全屏查看图片
     const fullscreenBtn = document.getElementById("fullscreenBtn");
